@@ -22,7 +22,7 @@ function App() {
 
     const [isUserAutherticated, setUserAuth] = useState(false)
 
-    const [jwt, setJwt] = useState(null)
+    const [jwt, setJwt] = useState(undefined)
 
     useEffect(() => {
         console.log('isUserAutherticated =>', isUserAutherticated)
@@ -48,16 +48,7 @@ function App() {
     }
 
     const handleLogOut = () => {
-
-        fetch('http://8a81d609aa5e.ngrok.io/winner/logout', {
-            method: 'GET',
-            headers: {
-                'Content-Type':
-                    'application/json',
-                jwt
-            }
-        })
-
+        // todo remove jwt from session
         setUserAuth(false)
     }
 
@@ -176,6 +167,7 @@ function App() {
             </div>
 
             {isUserAutherticated ? <Redirect to={'/profile'}/> : <Redirect to={'/'}/>}
+
         </Router>
 
     )
