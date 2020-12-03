@@ -1,5 +1,5 @@
 import './App.css'
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, Switch, Redirect} from 'react-router-dom'
 import {GotoProfile, TOTTI_TEXT} from './components/profile'
 import {useEffect, useState} from 'react'
 import {Field, Form, Formik} from 'formik'
@@ -63,15 +63,15 @@ function App() {
 
     return (
         <Router>
-            <div className="App row">
+            <div className="App">
 
                 {/* REDIRECT TO LOGIN */}
                 <div className="col-6">
-                    <Link to="/"><h3 style={{color: 'white'}}>Login</h3></Link>
+                    <Link to="/"><h2 style={{color: 'white'}}>Login</h2></Link>
                 </div>
                 {/* REDIRECT TO HOME */}
                 <div className="col-6">
-                    <Link to="/profile"><h3 style={{color: 'white'}}>Profile</h3></Link>
+                    <Link to="/profile"><h2 style={{color: 'white'}}>Profile</h2></Link>
                 </div>
 
 
@@ -82,7 +82,7 @@ function App() {
                         <Card className="col-12"
                               style={{
                                   width: 400,
-                                  height: 430,
+                                  height: 400,
                                   display: 'flex',
                                   justifyContent: 'center',
                                   alignItems: 'center',
@@ -174,6 +174,8 @@ function App() {
                 </Switch>
 
             </div>
+
+            {isUserAutherticated ? <Redirect to={'/profile'}/> : <Redirect to={'/'}/>}
         </Router>
 
     )
