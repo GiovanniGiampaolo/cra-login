@@ -1,4 +1,4 @@
-##Here is a simple app to manage login with Formik & react router
+## Here is a simple app to manage login with Formik & react router
 
 # Getting Started with cra-login
 
