@@ -17,6 +17,7 @@ function App() {
     useEffect(() => {
         var prev = window.sessionStorage.getItem('preview')
         prev && setPreviewMode(!isPreviweMode)
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {

@@ -11,7 +11,7 @@ export function Preview() {
         var prev = window.sessionStorage.getItem('preview')
 
         setPrev(JSON.parse(prev))
-
+        // eslint-disable-next-line
     }, [])
 
     const handleGoBack = () => {
