@@ -1,5 +1,3 @@
-## Here is a simple app to manage login with Formik & react router
-
 # Getting Started with cra-login
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
