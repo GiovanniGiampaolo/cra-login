@@ -35,7 +35,7 @@ export function LoginForm(props) {
     return <React.Fragment>
 
         <Typography variant={'h5'}
-                    className="col-12 pb-4 font-weight-bold">
+                    className="col-12 pb-4 text-center font-weight-bold">
             Login into our React app!
         </Typography>
 
@@ -47,7 +47,7 @@ export function LoginForm(props) {
 
                 {/* TITLE */}
                 <TextField
-                    className="col-12 pb-4"
+                    className="col-8 pb-4"
                     variant={'outlined'}
                     id="username"
                     name="username"
@@ -58,18 +58,19 @@ export function LoginForm(props) {
 
                 {/* SUBTITLE */}
                 <TextField
-                    className="col-12 pb-4"
+                    className="col-8 pb-4"
                     variant={'outlined'}
                     id="password"
                     name="password"
                     label="Password"
+                    type="password"
                     value={props.values.password}
                     onChange={props.handleChange}
                 />
 
                 {/* SUBMIT */}
                 <Button color="primary"
-                        className="col-12"
+                        className="col-6"
                         variant="contained" type="submit">
                     login
                 </Button>

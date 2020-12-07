@@ -47,7 +47,7 @@ function App() {
                     </div>
 
 
-                    <Card className="row container align-content-center justify-content-center flex-column p-5" style={{maxWidth: 600}}>
+                    <Card className="row container align-content-center justify-content-center flex-column p-5 w-auto" style={{maxWidth: 600}}>
                         <Switch>
 
                             {/* ROUTE LOGIN */}
