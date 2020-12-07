@@ -33,8 +33,6 @@ function App() {
             {/* BASE ROUTING */}
             <Router>
                 <div className="App">
-
-
                     <div className="row mb-5">
                         {/* REDIRECT TO LOGIN */}
                         <Link className="col-md-6 col-12 align-content-center text-center link-no-style" to="/"><h2
@@ -46,8 +44,8 @@ function App() {
                         </Link>
                     </div>
 
-
-                    <Card className="row container align-content-center justify-content-center flex-column p-5 w-auto" style={{maxWidth: 600}}>
+                    <Card className="row container align-content-center justify-content-center flex-column p-5 w-auto"
+                          style={{maxWidth: 600}}>
                         <Switch>
 
                             {/* ROUTE LOGIN */}
