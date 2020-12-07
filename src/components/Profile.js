@@ -1,4 +1,4 @@
-import Card from '@material-ui/core/Card'
+import React from 'react'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import {Link} from 'react-router-dom'
@@ -14,79 +14,50 @@ export function ProfileComponent(props) {
         IS_DEV_MODE && props.setUserAuth(false)
     }
 
-    return <Card className="col-12"
-                 style={{
-                     width: 400,
-                     height: 430,
-                     display: 'flex',
-                     justifyContent: 'center',
-                     alignItems: 'center',
-                     textAlign: 'center'
-                 }}>
+    return <React.Fragment>
 
-        <div className="row d-flex flex-column">
+        <Typography variant={'h5'}
+                    className="col-12 text-center pb-4 font-weight-bold">
+            Benvenuto nel tuo profilo!
+        </Typography>
 
-            <h2>Benvenuto nel tuo profilo!</h2>
+        {/* USER DESC */}
+        <Typography className="col-12 mb-4 text-justify" variant={'body1'}>
+            {TOTTI_TEXT}
+        </Typography>
 
-            {/* USERNAME */}
-            <div className="col-8">
-                <Typography variant={'body1'} style={{margin: 30, textAlign: 'justify'}}>
-                    {TOTTI_TEXT}
-                </Typography>
-            </div>
-
-            {/* ACTION */}
-            <div className="col-8">
-                <Button variant={'outlined'}
-                        onClick={handleLogOut}
-                        style={{
-                            backgroundColor: '#bf3535',
-                            color: 'white',
-                            marginBottom: 20
-                        }}>Logout</Button>
-            </div>
-
+        {/* ACTIONS */}
+        <div className="d-flex flex-column align-items-center justify-content-center">
+            <Button onClick={handleLogOut}
+                    className="col-6 mb-2"
+                    style={{
+                        backgroundColor: '#bf3535',
+                        color: 'white'
+                    }}>Logout
+            </Button>
 
             {/* GO TO COMPOSE */}
-            <div className="col-8">
-                <Button variant={'outlined'}
-                        style={{backgroundColor: '#d67b1f', color: 'white'}}>
-                    <Link className={'link-no-style'} to={'/compose'}>Compose</Link>
-                </Button>
-            </div>
-
+            <Button className="col-6"
+                    style={{backgroundColor: '#d67b1f', color: 'white'}}>
+                <Link className={'link-no-style'} to={'/compose'}>Compose</Link>
+            </Button>
         </div>
-    </Card>
+
+    </React.Fragment>
 }
 
 export function GotoProfile() {
-    return <Card className="col-12"
-                 style={{
-                     width: 400,
-                     height: 430,
-                     display: 'flex',
-                     justifyContent: 'center',
-                     alignItems: 'center',
-                     textAlign: 'center'
-                 }}>
+    return <div className="d-flex flex-column align-items-center justify-items-center">
+        {/* TIPS */}
+        <Typography className="col-12 mb-2 text-justify" variant={'body1'}>
+            Devi loggarti per vedere questa porzione
+        </Typography>
 
-        <div className="row d-flex flex-column">
-
-            {/* USERNAME */}
-            <div className="col-8">
-                <Typography variant={'body1'} style={{margin: 30, textAlign: 'justify'}}>
-                    Devi loggarti per vedere questa porzione
-                </Typography>
-            </div>
-
-            {/* ACTION */}
-            <div className="col-8">
-                <Link to={'/'}>
-                    <Button variant={'outlined'} style={{backgroundColor: '#bf3535', color: 'white'}}>Back to
-                        Login</Button>
-                </Link>
-            </div>
-
-        </div>
-    </Card>
+        {/* ACTION */}
+        <Link to={'/'}>
+            <Button fullWidth style={{backgroundColor: '#bf3535', color: 'white'}}>
+                Back to Login
+            </Button>
+        </Link>
+    </div>
 }

@@ -1,16 +1,22 @@
-import {Field, Form, Formik} from 'formik'
-import {FORM_INIT_VALUES, IS_DEV_MODE, STATIC_AUTH_BODY} from '../constants'
+import React from 'react'
+import {Formik} from 'formik'
+import {IS_DEV_MODE, STATIC_AUTH_BODY} from '../constants'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
+import Typography from '@material-ui/core/Typography'
+
+const FORM_INIT_VALUES = {
+    username: '',
+    password: ''
+}
 
 export function LoginForm(props) {
 
-    const fetchLogin = () => {
+    const fetchLogin = (values) => {
 
         !IS_DEV_MODE ? fetch('http://8a81d609aa5e.ngrok.io/winner/login', {
             method: 'POST',
-            body: JSON.stringify(STATIC_AUTH_BODY),
+            body: JSON.stringify(IS_DEV_MODE ? STATIC_AUTH_BODY : values),
             headers: {
                 'Content-Type':
                     'application/json'
@@ -26,60 +32,51 @@ export function LoginForm(props) {
     }
 
 
-    return <Card className="col-12"
-                 style={{
-                     width: 400,
-                     height: 400,
-                     display: 'flex',
-                     justifyContent: 'center',
-                     alignItems: 'center',
-                     textAlign: 'center'
-                 }}>
+    return <React.Fragment>
 
-        <div className="row d-flex flex-column">
+        <Typography variant={'h5'}
+                    className="col-12 pb-4 font-weight-bold">
+            Login into our React app!
+        </Typography>
 
-            <h2>Login into our app React app!</h2>
+        <Formik initialValues={IS_DEV_MODE ? STATIC_AUTH_BODY : FORM_INIT_VALUES}
+                onSubmit={fetchLogin}
+        >
+            {props => (<form style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
+                             onSubmit={props.handleSubmit}>
 
-            <Formik initValues={FORM_INIT_VALUES}
-                // onSubmit={fetchLogin}
-            >
-                {(props) => (<Form onSubmit={props.handleSubmit}>
+                {/* TITLE */}
+                <TextField
+                    className="col-12 pb-4"
+                    variant={'outlined'}
+                    id="username"
+                    name="username"
+                    label="Username"
+                    value={props.values.username}
+                    onChange={props.handleChange}
+                />
+
+                {/* SUBTITLE */}
+                <TextField
+                    className="col-12 pb-4"
+                    variant={'outlined'}
+                    id="password"
+                    name="password"
+                    label="Password"
+                    value={props.values.password}
+                    onChange={props.handleChange}
+                />
+
+                {/* SUBMIT */}
+                <Button color="primary"
+                        className="col-12"
+                        variant="contained" type="submit">
+                    login
+                </Button>
 
 
-                    {/* USERNAME */}
-                    <div className="col-8">
-                        <Field
-                            name="username"
-                        >{() => <TextField variant={'outlined'}
-                                           label={'Username'}
-                                           style={{paddingBottom: 20}}/>}
-                        </Field>
+            </form>)}
+        </Formik>
 
-                    </div>
-
-                    {/* PASSWORD */}
-                    <div className="col-8">
-                        <Field
-                            name="password"
-                        >{() => <TextField variant={'outlined'}
-                                           type="password"
-                                           label={'Password'}
-                                           style={{paddingBottom: 20}}
-                        />}
-                        </Field>
-                    </div>
-
-                    {/* SUBMIT */}
-                    <div className="col-8">
-                        <Button variant={'outlined'}
-                                onClick={fetchLogin}
-                                style={{backgroundColor: '#386dbe', color: 'white'}}>Login</Button>
-                    </div>
-
-                </Form>)}
-
-            </Formik>
-
-        </div>
-    </Card>
+    </React.Fragment>
 }

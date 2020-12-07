@@ -1,7 +1,10 @@
+import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
 import {TOTTI_TEXT} from './Profile'
+import {Formik} from 'formik'
+import {Link} from 'react-router-dom'
+import Typography from '@material-ui/core/Typography'
 
 const EXAMPLE_OBJ_PREW = {
     title: 'Il Capitano',
@@ -10,56 +13,60 @@ const EXAMPLE_OBJ_PREW = {
 
 export function ComposeForm() {
 
-    const handlePreview = () => {
-        window.sessionStorage.setItem('preview', JSON.stringify(EXAMPLE_OBJ_PREW))
+    const handlePreview = (values) => {
+        window.sessionStorage.setItem('preview', JSON.stringify(values))
         window.open('/preview', '_blank')
     }
 
-    return <Card className="col-12"
-                 style={{
-                     width: 600,
-                     height: 500,
-                     display: 'flex',
-                     justifyContent: 'center',
-                     alignItems: 'center',
-                     textAlign: 'center'
-                 }}>
+    return <React.Fragment>
 
-        <div className="row d-flex flex-column">
+        <Typography className="col-12 mb-4 font-weight-bold" variant={'h5'}>Genera la tua pagina
+            dinamicamente</Typography>
 
-            <h2>Genera la tua pagina dinamicamente</h2>
-
-            <form>
+        <Formik initialValues={EXAMPLE_OBJ_PREW}
+                onSubmit={handlePreview}
+        >
+            {props => (<form style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
+                             onSubmit={props.handleSubmit}>
 
                 {/* TITLE */}
-                <div className="col-8">
-                    <TextField variant={'outlined'}
-                               label={'Title'}
-                               disabled={true}
-                               value={'Il capitano'}
-                               style={{paddingBottom: 20}}/>
-                </div>
+                <TextField
+                    className="col-8 mb-4"
+                    variant={'outlined'}
+                    id="title"
+                    name="title"
+                    label="Title"
+                    value={props.values.title}
+                    onChange={props.handleChange}
+                />
 
                 {/* SUBTITLE */}
-                <div className="col-8">
-                    <TextField variant={'outlined'}
-                               label={'Subtitle'}
-                               disabled={true}
-                               multiline
-                               value={TOTTI_TEXT}
-                               style={{paddingBottom: 20, width: 400}}
-                    />
-                </div>
+                <TextField
+                    className="col-12 mb-4"
+                    variant={'outlined'}
+                    id="description"
+                    name="description"
+                    label="Dynamic text"
+                    multiline
+                    placeholder={'Write here text'}
+                    value={props.values.description}
+                    onChange={props.handleChange}
+                />
 
-                {/* SUBTITLE */}
-                <div className="col-8">
-                    <Button variant={'outlined'}
-                            onClick={handlePreview}
-                            style={{backgroundColor: '#386dbe', color: 'white'}}>Preview</Button>
-                </div>
+                {/* SUBMIT */}
+                <Button className="col-8 mb-2"
+                        color="primary" variant="contained" type="submit">
+                    Preview
+                </Button>
 
-            </form>
+                {/* GO BACK TO PROFILE */}
+                <Button className="col-8"
+                        color="secondary" variant="contained"
+                >
+                    <Link className={'link-no-style'} to="/profile">Go back to profile</Link>
+                </Button>
 
-        </div>
-    </Card>
+            </form>)}
+        </Formik>
+    </React.Fragment>
 }

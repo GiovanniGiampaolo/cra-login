@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css'
 import {BrowserRouter as Router, Link, Redirect, Route, Switch} from 'react-router-dom'
 import {GotoProfile, ProfileComponent} from './components/Profile'
@@ -5,6 +6,7 @@ import {useEffect, useState} from 'react'
 import {ComposeForm} from './components/ComposeForm'
 import {Preview} from './components/Preview'
 import {LoginForm} from './components/LoginForm'
+import Card from '@material-ui/core/Card'
 
 function App() {
 
@@ -12,7 +14,7 @@ function App() {
 
     const [isPreviweMode, setPreviewMode] = useState(false)
 
-    const [jwt, setJwt] = useState(undefined)
+    const [jwt, setJwt] = useState('no jwt')
 
     useEffect(() => {
         var prev = window.sessionStorage.getItem('preview')
@@ -22,51 +24,63 @@ function App() {
 
     useEffect(() => {
         console.log('isUserAutherticated =>', isUserAutherticated, jwt)
-    }, [isUserAutherticated])
+    }, [isUserAutherticated, jwt])
 
 
     return (
-        <Router>
-            <div className="App">
+        <React.Fragment>
 
-                {/* REDIRECT TO LOGIN */}
-                <Link className={'col-6 link-no-style'} to="/"><h2 style={{color: 'white'}}>Login</h2></Link>
-                {/* REDIRECT TO HOME */}
-                <Link className={'col-6 link-no-style'} to="/profile"><h2 style={{color: 'white'}}>Profile</h2></Link>
+            {/* BASE ROUTING */}
+            <Router>
+                <div className="App">
 
-                <Switch>
 
-                    {/* ROUTE LOGIN */}
-                    <Route path={'/'} exact>
-                        <LoginForm setUserAuth={setUserAuth} setJwt={setJwt}/>
-                    </Route>
+                    <div className="row mb-5">
+                        {/* REDIRECT TO LOGIN */}
+                        <Link className="col-md-6 col-12 align-content-center text-center link-no-style" to="/"><h2
+                            style={{color: 'white'}}>Login</h2>
+                        </Link>
+                        {/* REDIRECT TO HOME */}
+                        <Link className="col-md-6 col-12 align-content-center text-center link-no-style" to="/profile">
+                            <h2 style={{color: 'white'}}>Profile</h2>
+                        </Link>
+                    </div>
 
-                    {/* ROUTE PROFILE */}
-                    <Route path={'/profile'} exact>
-                        {isUserAutherticated ? <ProfileComponent setUserAuth={setUserAuth}/> : <GotoProfile/>}
-                    </Route>
 
-                    {/* COMPOSE FORM */}
-                    <Route path={'/compose'}>
-                        <ComposeForm/>
-                    </Route>
+                    <Card className="row container align-content-center justify-content-center flex-column p-5" style={{maxWidth: 600}}>
+                        <Switch>
 
-                    {/* PREVIEW */}
-                    <Route path={'/preview'}>
-                        <Preview/>
-                    </Route>
+                            {/* ROUTE LOGIN */}
+                            <Route path={'/'} exact>
+                                <LoginForm setUserAuth={setUserAuth} setJwt={setJwt}/>
+                            </Route>
 
-                </Switch>
+                            {/* ROUTE PROFILE */}
+                            <Route path={'/profile'} exact>
+                                {isUserAutherticated ? <ProfileComponent setUserAuth={setUserAuth}/> : <GotoProfile/>}
+                            </Route>
 
-            </div>
+                            {/* COMPOSE FORM */}
+                            <Route path={'/compose'}>
+                                <ComposeForm/>
+                            </Route>
 
-            {/* REDIRECT AUTH */}
-            {isUserAutherticated ? <Redirect to={'/profile'}/> : <Redirect to={'/'}/>}
+                            {/* PREVIEW */}
+                            <Route path={'/preview'}>
+                                <Preview/>
+                            </Route>
 
-            {/* ACCESS PREV MODE */}
-            {isPreviweMode && <Redirect to={'/preview'}/>}
+                            {/* REDIRECT AUTH */}
+                            {isUserAutherticated ? <Redirect to={'/profile'}/> : <Redirect to={'/'}/>}
 
-        </Router>
+                            {/* ACCESS PREV MODE */}
+                            {isPreviweMode && <Redirect to={'/preview'}/>}
+
+                        </Switch>
+                    </Card>
+                </div>
+            </Router>
+        </React.Fragment>
 
     )
 }
